@@ -45,7 +45,8 @@ with st.sidebar:
     query = st.text_input(
         "Search Query",
         placeholder="e.g., human liver NAFLD bulk rna-seq",
-        help="Enter keywords to search for datasets",
+        help="Enter keywords to search for datasets (press Enter to search)",
+        key="search_query",
     )
 
     # Filters
