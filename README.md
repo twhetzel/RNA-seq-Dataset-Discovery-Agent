@@ -144,6 +144,8 @@ To enable LLM-based alternative name generation:
 
 ## Scoring Details
 
+For a detailed scoring algorithm with tables and examples, see [docs/scoring_algorithm.md](docs/scoring_algorithm.md).
+
 ### Relevance Score (55% weight)
 - Keyword overlap between query and dataset metadata
 - Boosted for normalized tissue/disease matches
