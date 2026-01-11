@@ -118,10 +118,12 @@ else:
     filters = {k: v for k, v in filters.items() if v is not None}
 
     # Rank datasets (apply filters even if no query)
+    # Use a high top_k to show all matching results (not just 20)
     ranked = rank_datasets(
         st.session_state.datasets, 
         query=query if query else "", 
-        filters=filters
+        filters=filters,
+        top_k=len(st.session_state.datasets)  # Show all matching results
     )
 
     # Results header
