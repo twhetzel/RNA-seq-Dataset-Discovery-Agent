@@ -1,6 +1,6 @@
 # RNA-seq Dataset Discovery Agent
 
-Hackathon MVP project for the AGI House AI4Healthcare event (10-Jan-2026).
+Hackathon MVP project for the [AGI House AI4Healthcare](https://app.agihouse.org/events/AI4Healthcare%20Build%20Day%20-20260110) event (10-Jan-2026). Second place winner🥈 in the data discovery track.
 
 ## Overview
 
