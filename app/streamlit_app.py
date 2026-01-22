@@ -143,38 +143,52 @@ else:
                 # Basic info
                 col1, col2, col3 = st.columns(3)
                 with col1:
-                    st.metric("Final Score", f"{dataset.final_score:.3f}")
-                    st.metric("Relevance", f"{dataset.relevance_score:.3f}")
+                    st.metric("Final Score ❓", f"{dataset.final_score:.3f}")
+                    st.caption("Weighted combination of relevance (55%), reuse (30%), and completeness (15%)")
+                    st.metric("Relevance ❓", f"{dataset.relevance_score:.3f}")
+                    st.caption("How well the dataset matches your query (0-1)")
                 with col2:
-                    st.metric("Reuse Score", f"{dataset.reuse_score:.3f}")
-                    st.metric("Reuse Badge", dataset.reuse_badge)
+                    st.metric("Reuse Score ❓", f"{dataset.reuse_score:.3f}")
+                    st.caption("Statistical power based on sample counts (0-1)")
+                    st.metric("Reuse Badge ❓", dataset.reuse_badge)
+                    st.caption("High: ≥0.7, Medium: 0.4-0.69, Low: <0.4")
                 with col3:
-                    st.metric("Completeness", f"{dataset.completeness_score:.3f}")
-                    st.metric("Samples", dataset.samples_total or "Unknown")
+                    st.metric("Completeness ❓", f"{dataset.completeness_score:.3f}")
+                    st.caption("Metadata quality and normalization (0-1)")
+                    st.metric("Samples ❓", dataset.samples_total or "Unknown")
+                    st.caption("Total number of samples in the dataset")
 
                 # Details
                 st.markdown("### Dataset Details")
                 details_col1, details_col2 = st.columns(2)
 
                 with details_col1:
-                    st.write(f"**Dataset ID:** {dataset.dataset_id}")
-                    st.write(f"**Organism:** {dataset.organism or 'Unknown'}")
-                    st.write(f"**Assay Type:** {dataset.assay_type}")
-                    st.write(f"**Platform:** {dataset.platform or 'Unknown'}")
+                    geo_url = f"https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc={dataset.dataset_id}"
+                    st.markdown(f"**Dataset ID:** [{dataset.dataset_id}]({geo_url})")
+                    st.write(f"**Organism ❓:** {dataset.organism or 'Unknown'}")
+                    st.caption("Species (e.g., Homo sapiens, Mus musculus)")
+                    st.write(f"**Assay Type ❓:** {dataset.assay_type}")
+                    st.caption("RNA-seq type: bulk, scRNA (single-cell), or unknown")
+                    st.write(f"**Platform ❓:** {dataset.platform or 'Unknown'}")
+                    st.caption("Sequencing platform used")
 
                 with details_col2:
-                    st.write(f"**Tissue:** {dataset.tissue_raw or 'Unknown'}")
+                    st.write(f"**Tissue ❓:** {dataset.tissue_raw or 'Unknown'}")
+                    st.caption("Tissue or organ type extracted from metadata")
                     if dataset.tissue_curie:
                         source = dataset.tissue_normalization_source or "ols"
                         st.write(
-                            f"**Tissue (normalized):** {dataset.tissue_curie} (via {source.upper()})"
+                            f"**Tissue (normalized) ❓:** {dataset.tissue_curie} (via {source.upper()})"
                         )
-                    st.write(f"**Disease:** {dataset.disease_raw or 'Unknown'}")
+                        st.caption(f"UBERON ontology term normalized via {source.upper()}")
+                    st.write(f"**Disease ❓:** {dataset.disease_raw or 'Unknown'}")
+                    st.caption("Disease or condition extracted from metadata")
                     if dataset.disease_curie:
                         source = dataset.disease_normalization_source or "ols"
                         st.write(
-                            f"**Disease (normalized):** {dataset.disease_curie} (via {source.upper()})"
+                            f"**Disease (normalized) ❓:** {dataset.disease_curie} (via {source.upper()})"
                         )
+                        st.caption(f"MONDO ontology term normalized via {source.upper()}")
 
                 # Summary
                 if dataset.summary:
